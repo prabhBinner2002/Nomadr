@@ -1,0 +1,84 @@
+<% layout("/layouts/boilerplate") -%>
+
+<div class="row mt-5 mb-4">
+    <div class="col-md-8 offset-md-2">
+        <h3 class="mb-4 text-center">Create a New Listing</h3>
+        
+        <form action="/listings" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+            
+            <!-- Title -->
+            <div class="form-floating mb-3">
+                <input type="text" id="title" class="form-control" name="listing[title]" placeholder="Add a title" required>
+                <label for="title">Title</label>
+                <div class="invalid-feedback">Please provide a listing title.</div>
+            </div>
+            
+            <!-- Description -->
+            <div class="form-floating mb-3">
+                <textarea name="listing[description]" class="form-control" id="description" placeholder="Enter description..." style="height: 100px;" required></textarea>
+                <label for="description">Description</label>
+                <div class="invalid-feedback">A description is required.</div>
+            </div>
+            
+            <!-- Image Upload -->
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload Listing Image</label>
+                <input type="file" class="form-control" id="image" name="listing[image]" required>
+                <div class="invalid-feedback">Please upload an image.</div>
+            </div>
+            
+            <!-- Price and Category -->
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="number" class="form-control" id="price" name="listing[price]" placeholder="Price" required>
+                        <label for="price">Price ($)</label>
+                        <div class="invalid-feedback">Please enter a price.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <select class="form-select" name="listing[category]" id="category" required>
+                            <option disabled selected value="">Choose a category</option>
+                            <option value="Beachfront">Beachfront</option>
+                            <option value="Cabins">Cabins</option>
+                            <option value="Tiny homes">Tiny homes</option>
+                            <option value="Amazing views">Amazing views</option>
+                            <option value="OMG!">OMG!</option>
+                            <option value="Treehouses">Treehouses</option>
+                            <option value="Design">Design</option>
+                            <option value="Lakefront">Lakefront</option>
+                            <option value="A-frames">A-frames</option>
+                            <option value="Camping">Camping</option>
+                        </select>
+                        <label for="category">Category</label>
+                        <div class="invalid-feedback">Please select a category.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Location and Country -->
+            <div class="row g-3 mt-1">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" name="listing[location]" id="location" class="form-control" placeholder="Enter Location" required>
+                        <label for="location">Location</label>
+                        <div class="invalid-feedback">Location is required.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" id="country" name="listing[country]" class="form-control" placeholder="Enter Country" required>
+                        <label for="country">Country</label>
+                        <div class="invalid-feedback">Country is required.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Submit Button -->
+            <div class="text-center mt-4">
+                <button class="btn btn-dark px-5 py-2" type="submit">Create Listing</button>
+            </div>
+        </form>
+    </div>
+</div>

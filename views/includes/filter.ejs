@@ -1,0 +1,146 @@
+<!-- Mobile Filters & Toggle -->
+<div class="container d-md-none mt-3">
+    <div class="d-flex justify-content-between align-items-center">
+        <!-- Filters Button -->
+        <button class="btn btn-outline-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileFilters" aria-controls="mobileFilters">
+            <i class="fas fa-sliders-h"></i> Filters
+        </button>
+        
+        <!-- Display Taxes Toggle -->
+        <div class="form-check form-switch mb-0 ms-2">
+            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked">
+            <label class="form-check-label ms-1" for="switchCheckChecked" style="font-size: 0.9rem;">Taxes</label>
+        </div>
+    </div>
+</div>
+
+<!-- Desktop Filters -->
+<div class="container d-none d-md-block">
+    <div class="filter-wrapper">
+        <div class="filter-scroll-container">
+            <button class="scroll-btn left"><i class="fas fa-chevron-left"></i></button>
+            <div id="filters">
+                <div class="filter">
+                    <a href="/listings/filter?category=Beachfront">
+                        <i class="fa-solid fa-umbrella-beach"></i> Beachfront
+                    </a>
+                </div>
+                <div class="filter">
+                    <a href="/listings/filter?category=Cabins">
+                        <i class="fa-solid fa-campground"></i> Cabins
+                    </a>
+                </div>
+                <div class="filter">
+                    <a href="/listings/filter?category=Tiny+homes">
+                        <i class="fa-solid fa-house-chimney"></i> Tiny homes
+                    </a>
+                </div>
+                <div class="filter">
+                    <a href="/listings/filter?category=Amazing+views">
+                        <i class="fa-solid fa-mountain"></i> Amazing views
+                    </a>
+                </div>
+                <div class="filter">
+                    <a href="/listings/filter?category=OMG!">
+                        <i class="fa-solid fa-face-surprise"></i> OMG!
+                    </a>
+                </div>
+                <div class="filter">
+                    <a href="/listings/filter?category=Treehouses">
+                        <i class="fa-solid fa-tree"></i> Treehouses
+                    </a>
+                </div>
+                <div class="filter">
+                    <a href="/listings/filter?category=Design">
+                        <i class="fa-solid fa-pencil-ruler"></i> Design
+                    </a>
+                </div>
+                <div class="filter">
+                    <a href="/listings/filter?category=Lakefront">
+                        <i class="fa-solid fa-water"></i> Lakefront
+                    </a>
+                </div>
+                <div class="filter">
+                    <a href="/listings/filter?category=A-frames">
+                        <i class="fa-solid fa-house"></i> A-frames
+                    </a>
+                </div>
+                <div class="filter">
+                    <a href="/listings/filter?category=Camping">
+                        <i class="fa-solid fa-fire"></i> Camping
+                    </a>
+                </div>
+            </div>
+            <button class="scroll-btn right"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        
+        <!-- Tax Toggle -->
+        <div class="form-check form-switch d-flex align-items-center ms-2">
+            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDesktop">
+            <label class="form-check-label ms-2" for="switchCheckDesktop">Display Taxes</label>
+        </div>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-start d-md-none" tabindex="-1" id="mobileFilters" aria-labelledby="mobileFiltersLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="mobileFiltersLabel">Filters</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    
+    <div class="offcanvas-body">
+        <div class="d-flex flex-column gap-3">
+            <div class="filter">
+                <a href="/listings/filter?category=Beachfront">
+                    <i class="fa-solid fa-umbrella-beach"></i> Beachfront
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listings/filter?category=Cabins">
+                    <i class="fa-solid fa-campground"></i> Cabins
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listings/filter?category=Tiny+homes">
+                    <i class="fa-solid fa-house-chimney"></i> Tiny homes
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listings/filter?category=Amazing+views">
+                    <i class="fa-solid fa-mountain"></i> Amazing views
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listings/filter?category=OMG!">
+                    <i class="fa-solid fa-face-surprise"></i> OMG!
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listings/filter?category=Treehouses">
+                    <i class="fa-solid fa-tree"></i> Treehouses
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listings/filter?category=Design">
+                    <i class="fa-solid fa-pencil-ruler"></i> Design
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listings/filter?category=Lakefront">
+                    <i class="fa-solid fa-water"></i> Lakefront
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listings/filter?category=A-frames">
+                    <i class="fa-solid fa-house"></i> A-frames
+                </a>
+            </div>
+            <div class="filter">
+                <a href="/listings/filter?category=Camping">
+                    <i class="fa-solid fa-fire"></i> Camping
+                </a>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
