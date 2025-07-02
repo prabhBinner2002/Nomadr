@@ -60,7 +60,7 @@ async function main() {
 							Math.floor(Math.random() * categories.length)
 						],
 					geometry,
-					owner: "683787babaf0be940c6e38ae", // example static owner ID
+					owner: "686472c91b9f6d06ae4868ed",
 				});
 			} catch (err) {
 				console.error("Failed geocoding:", fullLocation, err.message);
