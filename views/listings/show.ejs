@@ -5,6 +5,20 @@
     const listing = <%- JSON.stringify(listing) %>;
 </script>
 
+<style>
+    .carousel-img {
+        height: 450px;
+        /* You can adjust this height */
+        object-fit: cover;
+        border-radius: 8px;
+    }
+    
+    .carousel-inner {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+</style>
+
 <div class="container mt-4">
     
     <!-- Listing Card -->
@@ -17,7 +31,25 @@
     <div class="row justify-content-center">
         <div class="col-md-7">
             <div class="card show-card listing-card">
-                <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="Listing Image">
+                <div id="listingCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
+                    <div class="carousel-inner rounded">
+                        <% listing.images.forEach((img, index) => { %>
+                        <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                            <img src="<%= img.url %>" class="d-block w-100 carousel-img" alt="Listing Image <%= index + 1 %>">
+                        </div>
+                        <% }) %>
+                    </div>
+                    <% if (listing.images.length > 1) { %>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#listingCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#listingCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                    <% } %>
+                </div>
                 <div class="card-body mt-1 text-center">
                     <p class="card-text mt-1">
                         Listing Owner: <strong><%= listing.owner.username %></strong>

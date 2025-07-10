@@ -21,15 +21,15 @@ module.exports.createListing = async (req, res) => {
 		})
 		.send();
 
-	let url = req.file.path;
-	let filename = req.file.filename;
 	let listing = req.body.listing;
 	const newListing = new Listing(listing);
 	newListing.owner = req.user._id;
-	newListing.image = { url, filename };
+	newListing.images = req.files.map((f) => ({
+		url: f.path,
+		filename: f.filename,
+	}));
 	newListing.geometry = response.body.features[0].geometry;
 	let savedListing = await newListing.save();
-	// console.log(savedListing);
 	req.flash("success", "Success! Your listing is now live.");
 	res.redirect("/listings");
 };
@@ -50,21 +50,13 @@ module.exports.showListing = async (req, res) => {
 };
 
 module.exports.renderEditForm = async (req, res) => {
-	let { id } = req.params;
+	const { id } = req.params;
 	const listing = await Listing.findById(id);
 	if (!listing) {
-		req.flash(
-			"error",
-			"We couldn't find the listing you requested. It may have been removed or never existed.",
-		);
+		req.flash("error", "We couldn't find the listing.");
 		return res.redirect("/listings");
 	}
-	let originalImageUrl = listing.image.url;
-	originalImageUrl = originalImageUrl.replace(
-		"/upload",
-		"/upload/h_300,w_250",
-	);
-	res.render("listings/edit.ejs", { listing, originalImageUrl });
+	res.render("listings/edit.ejs", { listing });
 };
 
 module.exports.updateListing = async (req, res) => {
@@ -75,10 +67,12 @@ module.exports.updateListing = async (req, res) => {
 		{ ...listing },
 		{ runValidators: true, new: true },
 	);
-	if (typeof req.file !== "undefined") {
-		let url = req.file.path;
-		let filename = req.file.filename;
-		newListing.image = { url, filename };
+	if (req.files && req.files.length > 0) {
+		const newImages = req.files.map((f) => ({
+			url: f.path,
+			filename: f.filename,
+		}));
+		newListing.images.push(...newImages);
 	}
 	await newListing.save();
 	req.flash(

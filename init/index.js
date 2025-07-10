@@ -11,7 +11,7 @@ if (!mapToken) {
 	throw new Error("MAP_TOKEN not found in environment variables");
 }
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlustPractice";
+const MONGO_URL = process.env.ATLASDB_URL;
 
 const categories = [
 	"Beachfront",
@@ -26,14 +26,15 @@ const categories = [
 	"Camping",
 ];
 
+const defaultOwnerId = "686472c91b9f6d06ae4868ed";
+
 async function main() {
 	try {
 		await mongoose.connect(MONGO_URL);
-		console.log("MongoDB Connected");
+		console.log("MongoDB connected");
 
 		const geocodingClient = mbxGeocoding({ accessToken: mapToken });
-
-		const listingsWithGeoAndCategory = [];
+		const listingsWithGeo = [];
 
 		for (const listing of initData.data) {
 			const fullLocation = `${listing.location}, ${listing.country}`;
@@ -53,26 +54,33 @@ async function main() {
 					continue;
 				}
 
-				listingsWithGeoAndCategory.push({
+				listingsWithGeo.push({
 					...listing,
 					category:
 						categories[
 							Math.floor(Math.random() * categories.length)
 						],
 					geometry,
-					owner: "686472c91b9f6d06ae4868ed",
+					owner: defaultOwnerId,
 				});
 			} catch (err) {
-				console.error("Failed geocoding:", fullLocation, err.message);
+				console.error(
+					"Geocoding failed for:",
+					fullLocation,
+					"-",
+					err.message,
+				);
 			}
 		}
 
 		await Listing.deleteMany({});
-		await Listing.insertMany(listingsWithGeoAndCategory);
+		await Listing.insertMany(listingsWithGeo);
 
-		console.log("All listings seeded with coordinates and categories!");
+		console.log(
+			`Seeded ${listingsWithGeo.length} listings with geo + categories!`,
+		);
 	} catch (err) {
-		console.error("Error connecting to MongoDB or seeding:", err);
+		console.error("❌ Error connecting or seeding:", err);
 	} finally {
 		await mongoose.connection.close();
 	}
