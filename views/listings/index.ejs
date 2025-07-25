@@ -5,6 +5,9 @@
 <!-- Listings -->
 <div class="container mb-5 mt-4">
     <div class="row g-4">
+        <% if(listings.length === 0) { %>
+        <div class="col-12 text-center fs-4">No listings found.</div>
+        <% } %>
         <% for (let listing of listings) { %>
         <div class="col-lg-4 col-md-6 col-sm-12">
             <a href="/listings/<%= listing._id %>" class="listing-link">
