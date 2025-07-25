@@ -5,8 +5,22 @@ const access_Token = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: access_Token });
 
 module.exports.index = async (req, res) => {
-	let listings = await Listing.find().populate("owner");
-	res.render("listings/index.ejs", { listings });
+        const { q } = req.query;
+        let listings;
+        if (q) {
+                const regex = new RegExp(q, "i");
+                listings = await Listing.find({
+                        $or: [
+                                { title: regex },
+                                { location: regex },
+                                { country: regex },
+                                { description: regex },
+                        ],
+                }).populate("owner");
+        } else {
+                listings = await Listing.find().populate("owner");
+        }
+        res.render("listings/index.ejs", { listings });
 };
 
 module.exports.renderNewForm = (req, res) => {
@@ -93,8 +107,27 @@ module.exports.destroyListing = async (req, res) => {
 };
 
 module.exports.filterListing = async (req, res) => {
-	let { category } = req.query;
-	const listings = await Listing.where("category").equals(category).limit(10);
-	// console.log(`Clicked ${req.query.category}`);
-	res.render("listings/index.ejs", { listings });
+        let { category } = req.query;
+        const listings = await Listing.where("category").equals(category).limit(10);
+        // console.log(`Clicked ${req.query.category}`);
+        res.render("listings/index.ejs", { listings });
+};
+
+module.exports.search = async (req, res) => {
+        const { q } = req.query;
+        if (!q) {
+                return res.json([]);
+        }
+        const regex = new RegExp(q, "i");
+        const listings = await Listing.find({
+                $or: [
+                        { title: regex },
+                        { location: regex },
+                        { country: regex },
+                        { description: regex },
+                ],
+        })
+                .populate("owner")
+                .limit(5);
+        res.json(listings);
 };
